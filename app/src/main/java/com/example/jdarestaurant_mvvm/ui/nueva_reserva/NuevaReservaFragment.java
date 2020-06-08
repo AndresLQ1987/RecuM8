@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.jdarestaurant_mvvm.R;
 
@@ -45,7 +46,13 @@ public class NuevaReservaFragment extends Fragment {
         enviar_reserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    mViewModel.reservar(getContext(),fecha.getText().toString(),Integer.parseInt(comensales.getText().toString()),
+                            nombre.getText().toString(),telefono.getText().toString(),comentarios.getText().toString());
+                    Toast.makeText(getContext(), "reserva registrada", Toast.LENGTH_LONG);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "numero personas debe ser un numero", Toast.LENGTH_LONG);
+                }
             }
         });
 

@@ -31,7 +31,7 @@ public class ListaReservasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         verReservasViewModel =
-                ViewModelProviders.of(this).get(VerReservasViewModel.class);
+                ViewModelProviders.of(requireActivity()).get(VerReservasViewModel.class);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vista_reserva, container, false);
@@ -43,6 +43,14 @@ public class ListaReservasFragment extends Fragment {
         reservas_recycler.setAdapter(reservaAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
         reservas_recycler.addItemDecoration(dividerItemDecoration);
+        verReservasViewModel.getReservas(getContext());
+        verReservasViewModel.getListReservas().observe(getViewLifecycleOwner(), new Observer<ArrayList<Reserva>>() {
+            @Override
+            public void onChanged(ArrayList<Reserva> reservaslist) {
+                reservas = reservaslist;
+                reservaAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
@@ -61,7 +69,7 @@ public class ListaReservasFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //clicable para el detalle
                 }
             });
         }
@@ -87,14 +95,14 @@ public class ListaReservasFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ReservaViewHolder reservaViewHolder, int i) {
 
-            reservaViewHolder.fecha.setText("0");
-            reservaViewHolder.personas.setText("0");
+            reservaViewHolder.fecha.setText(reservaList.get(i).getFecha());
+            reservaViewHolder.personas.setText(reservaList.get(i).getPersonas());
 
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return reservaList.size();
         }
     }
 

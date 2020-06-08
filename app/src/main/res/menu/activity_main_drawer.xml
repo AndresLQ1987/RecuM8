@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_platos_menu"
             android:title="Platos Menú" />
         <item
+            android:id="@+id/nuevaReservaFragment"
+            android:icon="@drawable/ic_platos_menu"
+            android:title="Reservas" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_cerca_reserva"
             android:title="Lista Reservas" />
